@@ -1,0 +1,21 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.rounded-t-5 {
+    border-top-left-radius: 1.rem ;
+    border-top-right-radius: 1.rem;
+  }
+
+@media (min-width: 992px) {
+    .rounded-tr-lg-0 {
+      border-top-right-radius: 0;
+    }
+
+    .rounded-bl-lg-5 {
+      border-bottom-left-radius: 0.5rem;
+    }
+  }

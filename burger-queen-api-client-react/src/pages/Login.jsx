@@ -1,35 +1,29 @@
-import { useState, } from 'react';
+import { useState, } from 'react'
+import '../Login.css'
 import logo from '/logo.png'
 import { useNavigate } from 'react-router-dom';
+import {  httpLogin } from '../httpApi/httpLogin';
+
+export let token;
+export let user;
 function Login() {
   // me permite navegar a rutas
   const navigate = useNavigate();
   // variables de estado de los inputs de usuario y contraseña
   const [email, setUsuario] = useState('');
   const [password, setContrasena] = useState('');
-  const dominio = 'http://localhost:8080/login'
-  //const dominio = 'https://burger-queen-api-mock-production-7906.up.railway.app';
-//PETICION HTTP 
-  async function httpLogin(credentials) {
-    return fetch(dominio, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    })
-    .then(data => data.json())
-    .catch(error => console.error('Error:', error))      
-   }
 
   const clickLogin = async (e) => {
     e.preventDefault();
-    const response =await httpLogin({email, password})
-    console.log(response);
+    const response =await httpLogin({email, password});  
+    console.log('response', response.user.id); 
+     token = response.accessToken
+     user = response.user.id
+     console.log(token);
 
-    if ('accessToken' in response) {
-      alert('You are logged in.');
-      response.user.role === 'admin'? navigate('/signup'): navigate('/')
+    if ('accessToken' in response) {      
+      response.user.role === 'admin'? navigate('/homeAdm'): navigate('/')
+     
       
     } else {
       alert('Please check your login information.', );
@@ -39,11 +33,14 @@ function Login() {
 
   return (
     <>
-      <div className="row mb-3">
+    <div className="row mb-3">
         <a target="_blank">
           <img src={logo} className="logo" alt="Vite logo" />
         </a>
       </div>
+      
+      <div className='login'>
+      
       <div className="card mb-3">
 
         <div className="row g-0 d-flex align-items-center">
@@ -79,6 +76,10 @@ function Login() {
           </div>
         </div>
       </div>
+      </div>
+      
+
+
     </>
 
   );

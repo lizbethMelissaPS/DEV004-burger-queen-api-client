@@ -25,10 +25,16 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex; */
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+.login {
+  margin: 0;
+  display: grid;
+  place-items: center;
+ 
 }
 
 h1 {
